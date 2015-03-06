@@ -7,7 +7,7 @@ class Weather():
     
     email_output_precip = email_output + " There is a %s percent chance of %s"
 
-    email_end_text = "\ndata provided by the Forecast.io API"
+    email_end_text = "\n\n\ndata provided by the Forecast.io API"
 
     def __init__(self, api_key, lat_lng):
         self.get_weather_data(api_key, lat_lng)
