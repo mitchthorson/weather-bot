@@ -7,6 +7,8 @@ class Weather():
     
     email_output_precip = email_output + " There is a %s percent chance of %s"
 
+    email_end_text = "\ndata provided by the Forecast.io API"
+
     def __init__(self, api_key, lat_lng):
         self.get_weather_data(api_key, lat_lng)
 
@@ -27,9 +29,9 @@ class Weather():
     def get_weather_text(self):
         if self.current_precip_chance > 0:
             precip_percent = int(self.current_precip_chance * 100)
-            return self.email_output_precip % (self.current_time, self.current_date, self.str_current_temp, self.str_today_high, precip_percent, self.current_precip_type)
+            return self.email_output_precip % (self.current_time, self.current_date, self.str_current_temp, self.str_today_high, precip_percent, self.current_precip_type) + self.email_end_text
         else:
-            return self.email_output % (self.current_time, self.current_date, self.str_current_temp, self.str_today_high)
+            return self.email_output % (self.current_time, self.current_date, self.str_current_temp, self.str_today_high) + self.email_end_text
     
     def get_weather_data(self, api_key, lat_lng):
         forecast_api_url = "https://api.forecast.io/forecast/%s/%s,%s" % (api_key, lat_lng[0], lat_lng[1])
