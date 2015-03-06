@@ -21,6 +21,7 @@ current_temp = weather_data["currently"]["temperature"]
 current_precip_chance = weather_data["currently"]["precipProbability"]
 if current_precip_chance > 0:
     current_precip_type = weather_data["curently"]["precipType"]
+    email_output = email_output + " There is a %s percent chance of %s"
 
 current_date = datetime.datetime.fromtimestamp(weather_data["currently"]["time"]).strftime('%m-%d-%Y')
 current_time = datetime.datetime.fromtimestamp(weather_data["currently"]["time"]).strftime('%H:%M')
@@ -30,7 +31,11 @@ str_current_temp = str(int(current_temp)) + " degrees"
 today_high_temp = weather_data["daily"]["data"][0]["temperatureMax"]
 str_today_high = str(int(today_high_temp)) + " degrees"
 
-todays_weather_text = email_output % (current_time, current_date, str_current_temp, str_today_high)
+if current_precip_chance > 0:
+    precip_percent = int(current_precip_chance * 100)
+    todays_weather_text = email_output % (current_time, current_date, str_current_temp, str_today_high, precip_percent, current_precip_type)
+else:
+    todays_weather_text = email_output % (current_time, current_date, str_current_temp, str_today_high)
 
 with open("%s/output.txt" % current_dir, "w") as output:
     output.write(todays_weather_text)
