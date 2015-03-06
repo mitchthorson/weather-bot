@@ -5,6 +5,7 @@ import os
 
 email_output = "Hello, Right now it is %s and the date is %s. The current temperature is %s and today will have a high of %s."
 forecast_api_key = os.environ.get("FORECAST_API_KEY", None)
+current_dir = os.path.dirname(os.path.abspath(__file__))
 
 def get_weather_data(api_key, lat, lng):
     forecast_api_url = "https://api.forecast.io/forecast/%s/%s,%s" % (api_key, lat, lng)
@@ -30,8 +31,7 @@ today_high_temp = weather_data["daily"]["data"][0]["temperatureMax"]
 str_today_high = str(int(today_high_temp)) + " degrees"
 
 todays_weather_text = email_output % (current_time, current_date, str_current_temp, str_today_high)
-print todays_weather_text
 
-with open("output.txt", "w") as output:
+with open("%s/output.txt" % current_dir, "w") as output:
     output.write(todays_weather_text)
 
