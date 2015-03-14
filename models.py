@@ -16,7 +16,7 @@ class Weather():
         self.current_temp = weather_data["currently"]["temperature"]
         self.current_precip_chance = weather_data["currently"]["precipProbability"]
         if self.current_precip_chance > 0:
-            self.current_precip_type = weather_data["curently"]["precipType"]
+            self.current_precip_type = weather_data["currently"]["precipType"]
 
         self.current_date = datetime.datetime.fromtimestamp(weather_data["currently"]["time"]).strftime('%m-%d-%Y')
         self.current_time = datetime.datetime.fromtimestamp(weather_data["currently"]["time"]).strftime('%H:%M')
